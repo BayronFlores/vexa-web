@@ -3,11 +3,10 @@
    (El código que los usa está en release.js.)
    --------------------------------------------------------------- */
 var RELEASE = {
-  version: "1.0",
-  file: "vexa.apk",
-  sha256: "", // pega aquí la huella SHA-256 del APK para mostrar el bloque «Verifica el archivo»
-  // La primera entrada es la más reciente. `date` es opcional (por ejemplo '12 de noviembre de 2026').
+  version: "1.2",
+  file: "https://github.com/BayronFlores/vexa-web/releases/download/v1.2/vexa.apk",
+  sha256: "", // opcional: `certutil -hashfile vexa.apk SHA256`
   history: [
-    { version: "1.0", date: "", notes: ["Primera versión pública de Vexa."] },
+    { version: "1.2", date: "", notes: ["Primera versión pública de Vexa."] },
   ],
 };
