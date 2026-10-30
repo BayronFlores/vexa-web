@@ -1,0 +1,80 @@
+/* =========================================================
+   Vexa – colores y medidas (lo primero que se edita para cambiar el look)
+   Tema oscuro = valores base. El claro se define dos veces porque CSS no
+   permite compartirlo: una para «sigue al sistema» y otra para «elegido a mano».
+   ► Si cambias un color claro, cámbialo en LOS DOS bloques.
+   ========================================================= */
+:root {
+  color-scheme: dark light;
+  --bg: #030020;
+  --bg-2: #0b0838;
+  --bg-3: #130f4a;
+  --ink: #f2f1ff;
+  --muted: #b4b1e0;
+  --line: rgba(255, 255, 255, 0.14);
+  --accent: #1ee6ff;
+  --btn-a: #1a35ff;
+  --btn-b: #4a22f5;
+  --btn-edge: #1020a8;
+  --glow: rgba(26, 53, 255, 0.34);
+
+  /* Estados de vencimiento (mismos nombres que en la app) */
+  --expired: #ff6b6b;
+  --today: #ffb74d;
+  --soon: #e6cf5e;
+  --active: #63d68e;
+  --nodate: #a9a6d4;
+
+  --font:
+    "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", Roboto,
+    sans-serif;
+  --gutter: clamp(1.1rem, 4vw, 2rem);
+  --nav-h: 4rem;
+
+  /* Intensidad del tinte de color de estado. En claro es menor para mantener contraste ≥ 4,5:1 */
+  --tint-chip: 17%;
+  --tint-on: 26%;
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+/* Tema claro: el sistema lo pide y la persona no eligió oscuro */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #faf9ff;
+    --bg-2: #f0eeff;
+    --bg-3: #e3e0ff;
+    --ink: #14112b;
+    --muted: #48455e;
+    --line: rgba(20, 17, 43, 0.16);
+    --accent: #3327f0;
+    --glow: rgba(74, 34, 245, 0.16);
+    --expired: #ba1b1b;
+    --today: #a84a00;
+    --soon: #7a5900;
+    --active: #276b34;
+    --nodate: #5e5b7a;
+    --tint-chip: 8%;
+    --tint-on: 13%;
+  }
+}
+/* Tema claro: la persona lo eligió con el botón */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #faf9ff;
+  --bg-2: #f0eeff;
+  --bg-3: #e3e0ff;
+  --ink: #14112b;
+  --muted: #48455e;
+  --line: rgba(20, 17, 43, 0.16);
+  --accent: #3327f0;
+  --glow: rgba(74, 34, 245, 0.16);
+  --expired: #ba1b1b;
+  --today: #a84a00;
+  --soon: #7a5900;
+  --active: #276b34;
+  --nodate: #5e5b7a;
+  --tint-chip: 8%;
+  --tint-on: 13%;
+}

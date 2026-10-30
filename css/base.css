@@ -1,0 +1,285 @@
+/* =========================================================
+   Vexa – base: reinicio, tipografía, contenedores, botones,
+   chips de estado, íconos y superficies compartidas
+   ========================================================= */
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(
+    var(--nav-h) + env(safe-area-inset-top, 0px) + 0.75rem
+  );
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 400 1.0625rem/1.6 var(--font);
+  -webkit-font-smoothing: antialiased;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+  overflow-x: hidden;
+}
+a {
+  color: var(--accent);
+}
+img,
+svg {
+  max-width: 100%;
+}
+svg.i {
+  width: 1.4rem;
+  height: 1.4rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex: none;
+}
+svg.i.sm {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+.wrap {
+  width: min(1120px, 100% - 2 * var(--gutter));
+  margin-inline: auto;
+}
+.skip {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: var(--accent);
+  color: var(--bg);
+  padding: 0.6rem 1rem;
+  z-index: 100;
+}
+.skip:focus {
+  left: 0;
+}
+
+/* ---------- Tipografía ---------- */
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font);
+  text-wrap: balance;
+}
+h1 {
+  font-weight: 800;
+  font-size: clamp(2.4rem, 6vw, 4.3rem);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  margin: 0 0 1.2rem;
+}
+h2 {
+  font-weight: 800;
+  font-size: clamp(1.7rem, 3.8vw, 2.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.7rem;
+}
+h3 {
+  font-weight: 700;
+  font-size: 1.12rem;
+  line-height: 1.25;
+  margin: 0 0 0.35rem;
+}
+p {
+  margin: 0;
+}
+.sub {
+  color: var(--muted);
+  max-width: 38rem;
+  margin-bottom: 2.25rem;
+}
+.sub.flush {
+  margin-bottom: 0;
+}
+
+/* ---------- Secciones ---------- */
+.sec {
+  padding: clamp(3.5rem, 8vw, 6.25rem) 0;
+}
+.sec.tint {
+  background: var(--bg-2);
+  border-block: 1px solid var(--line);
+}
+
+/* Superficies: fondo y borde compartidos */
+.tile,
+.probe-card,
+.warn,
+.device-note,
+.verify code {
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+}
+
+/* ---------- Botones ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  min-height: 2.75rem;
+  padding: 0.65rem 1.2rem;
+  border-radius: 14px;
+  border: 0;
+  background: linear-gradient(90deg, var(--btn-a), var(--btn-b));
+  color: #fff;
+  text-decoration: none;
+  font: 700 1rem var(--font);
+  cursor: pointer;
+  box-shadow: 0 4px 0 var(--btn-edge);
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease;
+}
+.btn:hover {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 var(--btn-edge);
+}
+.btn:active {
+  transform: translateY(4px);
+  box-shadow: none;
+}
+.btn.lg {
+  padding: 1rem 1.7rem;
+  font-size: 1.15rem;
+  border-radius: 16px;
+  box-shadow: 0 6px 0 var(--btn-edge);
+}
+.btn.lg:hover {
+  box-shadow: 0 4px 0 var(--btn-edge);
+}
+.btn.lg:active {
+  box-shadow: none;
+  transform: translateY(6px);
+}
+.btn.ghost {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  box-shadow: none;
+  font-weight: 600;
+}
+.btn.ghost:hover {
+  background: var(--bg-2);
+  transform: none;
+  box-shadow: none;
+}
+.btn.ghost.lg {
+  padding: 1rem 1.3rem;
+  font-size: 1.05rem;
+  box-shadow: none;
+}
+.btn.sm {
+  min-height: 2.5rem;
+  padding: 0.45rem 0.95rem;
+  font-size: 0.95rem;
+}
+
+/* ---------- Estados de vencimiento: una sola definición para chips, ejes y contadores ---------- */
+.chip {
+  --c: var(--active);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex: none;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--c);
+  background: color-mix(in srgb, var(--c) var(--tint-chip), transparent);
+}
+.chip svg {
+  width: 0.85rem;
+  height: 0.85rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.expired {
+  --c: var(--expired);
+}
+.today {
+  --c: var(--today);
+}
+.soon {
+  --c: var(--soon);
+}
+.active {
+  --c: var(--active);
+}
+
+/* Cuadro de ícono (tarjetas de funciones y permisos) */
+.ico {
+  display: grid;
+  place-items: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 12px;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 13%, transparent);
+}
+
+/* Datos de la descarga (versión · tamaño · requisito): se usa en el hero y en el cierre */
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0;
+  margin: 1.6rem 0 0;
+  padding: 0;
+}
+.meta div {
+  padding-right: 1.1rem;
+  margin-right: 1.1rem;
+  border-right: 1px solid var(--line);
+}
+.meta div:last-child {
+  border-right: 0;
+  margin-right: 0;
+  padding-right: 0;
+}
+.meta dt {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.meta dd {
+  margin: 0;
+  font-weight: 700;
+}
+.meta dd a {
+  color: inherit;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 3px;
+}
+.meta [hidden] {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* include.js oculta el contenido mientras arma la página, para que no se vea a medias */
+.loading .nav,
+.loading main,
+.loading footer {
+  visibility: hidden;
+}

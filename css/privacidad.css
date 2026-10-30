@@ -1,0 +1,120 @@
+/* =========================================================
+   Vexa – sección «Tus datos se quedan en tu teléfono»
+   ========================================================= */
+.privacy-grid {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: start;
+}
+.facts-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.facts-list li {
+  display: grid;
+  grid-template-columns: 1.5rem 1fr;
+  gap: 0.9rem;
+  padding: 1.1rem 0;
+  border-top: 1px solid var(--line);
+}
+.facts-list li:last-child {
+  border-bottom: 1px solid var(--line);
+}
+.facts-list svg {
+  color: var(--accent);
+  margin-top: 0.15rem;
+}
+.facts-list b {
+  display: block;
+  font-weight: 700;
+}
+.facts-list span {
+  color: var(--muted);
+  font-size: 0.98rem;
+}
+
+/* Diagrama «qué sale del teléfono» */
+.flow {
+  display: grid;
+  grid-template-columns: 1fr minmax(9rem, 0.7fr) 1fr;
+  align-items: center;
+}
+.flow.full {
+  grid-column: 1 / -1;
+}
+.node {
+  padding: 1.4rem 1.5rem;
+  border-radius: 22px;
+}
+.node h3 {
+  margin-bottom: 0.6rem;
+}
+.node ul {
+  margin: 0;
+  padding-left: 1.15rem;
+  color: var(--muted);
+  display: grid;
+  gap: 0.25rem;
+  font-size: 0.98rem;
+}
+.node p {
+  color: var(--muted);
+  font-size: 0.98rem;
+}
+.node.here {
+  background: color-mix(in srgb, var(--accent) 10%, var(--bg));
+  border: 2px solid var(--accent);
+}
+.node.away {
+  border: 2px dashed var(--line);
+}
+.wire {
+  position: relative;
+  text-align: center;
+  padding: 0 0.75rem;
+}
+.wire::before {
+  content: "";
+  display: block;
+  border-top: 2px dashed var(--accent);
+  margin: 0.9rem 0 0.7rem;
+}
+.wire::after {
+  content: "";
+  position: absolute;
+  right: 0.55rem;
+  top: 1.05rem;
+  width: 0.65rem;
+  height: 0.65rem;
+  border-top: 2px solid var(--accent);
+  border-right: 2px solid var(--accent);
+  transform: translateY(-50%) rotate(45deg);
+}
+.wire b {
+  display: block;
+  font-size: 0.92rem;
+  line-height: 1.3;
+}
+.wire small {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+@media (max-width: 760px) {
+  .privacy-grid,
+  .flow {
+    grid-template-columns: 1fr;
+  }
+  .wire {
+    padding: 0.8rem 0 0.8rem 1.5rem;
+    text-align: left;
+    border-left: 2px dashed var(--accent);
+    margin-left: 1.5rem;
+  }
+  .wire::before,
+  .wire::after {
+    display: none;
+  }
+}

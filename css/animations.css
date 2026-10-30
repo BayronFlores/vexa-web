@@ -1,0 +1,346 @@
+/* =========================================================
+   Vexa – animaciones
+   Lo que depende de JS cuelga de la clase .anim, que agrega
+   animations.js solo si la persona NO pidió reducir movimiento.
+   ========================================================= */
+
+:root {
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-spring: cubic-bezier(0.3, 1.5, 0.5, 1);
+}
+
+/* ---------- Keyframes ---------- */
+@keyframes rise {
+  from {
+    opacity: 0;
+    translate: 0 24px;
+  }
+}
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    scale: 0.94;
+    translate: 0 16px;
+  }
+}
+@keyframes word {
+  from {
+    opacity: 0;
+    translate: 0 0.45em;
+  }
+}
+@keyframes phone-in {
+  from {
+    opacity: 0;
+    translate: 0 48px;
+    rotate: 3deg;
+  }
+}
+@keyframes pop {
+  from {
+    opacity: 0;
+    scale: 0.7;
+  }
+}
+@keyframes float {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: 0 -6px;
+  }
+}
+@keyframes row-glow {
+  0%,
+  46% {
+    border-color: var(--line);
+  }
+  56%,
+  90% {
+    border-color: var(--soon);
+  }
+  100% {
+    border-color: var(--line);
+  }
+}
+@keyframes dash {
+  to {
+    background-position: 14px 0;
+  }
+}
+@keyframes bars {
+  to {
+    background-position: 26px 0;
+  }
+}
+@keyframes bump {
+  from {
+    scale: 0.82;
+  }
+  to {
+    scale: 1;
+  }
+}
+@keyframes faq-in {
+  from {
+    opacity: 0;
+    translate: 0 -8px;
+  }
+}
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    translate: 0 -8px;
+  }
+}
+@keyframes nudge {
+  40% {
+    translate: 0 4px;
+  }
+  70% {
+    translate: 0 -1px;
+  }
+}
+
+/* ---------- 1. Entrada del hero (una sola secuencia al cargar) ---------- */
+.anim .hero h1:not(.split) {
+  visibility: hidden;
+}
+.anim .hero h1 .w {
+  display: inline-block;
+  animation: word 0.7s var(--ease-out) backwards;
+  animation-delay: calc(0.05s + var(--w, 0) * 70ms);
+}
+.anim .hero .lead {
+  animation: rise 0.8s var(--ease-out) 0.45s backwards;
+}
+.anim .hero .cta-row {
+  animation: rise 0.8s var(--ease-out) 0.6s backwards;
+}
+.anim .hero .meta {
+  animation: rise 0.8s var(--ease-out) 0.72s backwards;
+}
+.anim .hero .reassure {
+  animation: rise 0.8s var(--ease-out) 0.82s backwards;
+}
+
+/* Teléfono: entra y luego flota apenas (único movimiento continuo además del láser) */
+.anim .phone {
+  animation:
+    phone-in 1s var(--ease-out) 0.2s backwards,
+    float 7s ease-in-out 1.4s infinite alternate;
+}
+.anim .screen > .grp {
+  animation: rise 0.6s var(--ease-out) backwards;
+}
+.anim .screen > .grp:nth-child(3) {
+  animation-delay: 0.6s;
+}
+.anim .screen > .grp:nth-child(4) {
+  animation-delay: 0.72s;
+}
+.anim .screen > .grp:nth-child(5) {
+  animation-delay: 0.84s;
+}
+.anim .screen > .grp:nth-child(6) {
+  animation-delay: 0.96s;
+}
+
+/* Escáner: solo aparece; lo memorable es el láser y el aviso */
+.anim .scanner .frame {
+  animation: pop 0.6s var(--ease-spring) 1s backwards;
+}
+
+/* La fila «Leche entera» se ilumina a la vez que el aviso del escáner (mismo ciclo de 5,6 s) */
+.anim .screen > .grp:nth-child(5) .row {
+  animation: row-glow 5.6s ease-in-out infinite;
+}
+/* Fuera de pantalla, el hero pausa todo lo infinito (JS marca .is-offscreen) */
+.anim .hero.is-offscreen,
+.anim .hero.is-offscreen * {
+  animation-play-state: paused;
+}
+
+/* ---------- 2. Aparición al hacer scroll (solo títulos, tarjetas y pasos) ---------- */
+.anim [data-reveal]:not(.is-in) {
+  opacity: 0;
+}
+.anim [data-reveal].is-in {
+  animation: rise 0.7s var(--ease-out) backwards;
+  animation-delay: calc(min(var(--i, 0), 5) * 80ms);
+}
+.anim [data-reveal="scale"].is-in {
+  animation-name: scale-in;
+}
+
+/* ---------- 3. Líneas de tiempo y pasos ---------- */
+.anim .when::before {
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 1s var(--ease-out) 0.2s;
+}
+.anim .when.is-in::before {
+  transform: scaleX(1);
+}
+.anim .when li::before {
+  scale: 0;
+  transition: scale 0.45s var(--ease-spring) calc(0.3s + var(--k, 0) * 0.22s);
+}
+.anim .when.is-in li::before {
+  scale: 1;
+}
+
+.anim .steps li::before {
+  scale: 0;
+  transition: scale 0.45s var(--ease-spring) calc(0.1s + var(--k, 0) * 0.2s);
+}
+.anim .steps.is-in li::before {
+  scale: 1;
+}
+.anim .steps li::after {
+  transform-origin: left;
+  scale: 0 1;
+  transition: scale 0.6s var(--ease-out) calc(0.35s + var(--k, 0) * 0.2s);
+}
+.anim .steps.is-in li::after {
+  scale: 1;
+}
+
+/* ---------- 4. Cable de datos: los guiones avanzan hacia el servicio ---------- */
+.wire::before {
+  border-top: 0;
+  height: 2px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--accent) 0 8px,
+    transparent 8px 14px
+  );
+  background-size: 14px 2px;
+}
+.anim .flow.is-visible .wire::before {
+  animation: dash 0.9s linear infinite;
+}
+
+/* ---------- 5. Franja de código de barras ---------- */
+.band::before {
+  background-size: 26px 100%;
+}
+.anim .band.is-visible::before {
+  animation: bars 5s linear infinite;
+}
+.stats b,
+.counters b {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- 6. Navegación: sombra, progreso y sección actual ---------- */
+.nav {
+  transition:
+    box-shadow 0.25s ease,
+    background-color 0.25s ease;
+}
+.nav.scrolled {
+  box-shadow: 0 10px 30px -18px rgba(0, 0, 0, 0.55);
+  background: color-mix(in srgb, var(--bg) 94%, transparent);
+}
+.progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  pointer-events: none;
+  transform-origin: left;
+  transform: scaleX(var(--p, 0));
+  background: linear-gradient(90deg, var(--accent), var(--btn-b));
+}
+
+@media (min-width: 761px) {
+  .links a:not(.menu-dl) {
+    position: relative;
+  }
+  .links a:not(.menu-dl)::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.1rem;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s var(--ease-out);
+  }
+  .links a:not(.menu-dl):hover::after,
+  .links a.current::after {
+    transform: scaleX(1);
+  }
+  .links a.current {
+    color: var(--ink);
+  }
+}
+@media (max-width: 760px) {
+  .links.open {
+    animation: menu-in 0.25s var(--ease-out);
+  }
+  .links a.current {
+    color: var(--ink);
+  }
+}
+
+/* ---------- 7. Respuesta a acciones de la persona ---------- */
+.btn:hover .i {
+  animation: nudge 0.6s ease;
+}
+details[open] p {
+  animation: faq-in 0.3s var(--ease-out);
+}
+.chip.bump {
+  animation: bump 0.35s var(--ease-spring);
+}
+
+@media (hover: hover) {
+  .tile {
+    transition:
+      translate 0.25s var(--ease-out),
+      border-color 0.25s ease;
+  }
+  .tile:hover {
+    translate: 0 -4px;
+    border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+  }
+  .tile .ico {
+    transition:
+      scale 0.25s var(--ease-spring),
+      rotate 0.25s ease;
+  }
+  .tile:hover .ico {
+    scale: 1.1;
+    rotate: -6deg;
+  }
+}
+
+/* ---------- Movimiento reducido ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .wire::before,
+  details[open] p,
+  .links.open,
+  .chip.bump,
+  .btn:hover .i {
+    animation: none;
+  }
+  .tile,
+  .tile .ico,
+  .nav,
+  .tile:hover,
+  .tile:hover .ico {
+    transition: none;
+    translate: none;
+    scale: none;
+    rotate: none;
+  }
+  .links a::after {
+    transition: none;
+  }
+}

@@ -1,0 +1,123 @@
+<!-- ================= Hero ================= -->
+<section class="hero" id="inicio" aria-labelledby="t-hero">
+  <div class="wrap hero-grid">
+    <div>
+      <h1 id="t-hero">Controla los vencimientos. Evita las sorpresas.</h1>
+      <p class="lead">
+        Escanea el código de barras de tus productos, registra su fecha de
+        vencimiento y recibe avisos a tiempo, directo en tu Android.
+      </p>
+
+      <div class="cta-row">
+        <a class="btn lg" id="download" href="vexa.apk" data-apk download>
+          <svg class="i" aria-hidden="true"><use href="#i-dl" /></svg>
+          Descargar para Android
+        </a>
+        <a class="btn ghost lg" href="#instalar">Cómo se instala</a>
+      </div>
+
+      <dl class="meta" aria-label="Datos de la descarga">
+        <div>
+          <dt>Versión</dt>
+          <dd><a href="#novedades" data-version>1.0</a></dd>
+        </div>
+        <div data-size-item hidden>
+          <dt>Tamaño</dt>
+          <dd data-size></dd>
+        </div>
+        <div>
+          <dt>Requiere</dt>
+          <dd>Android 8.0 o superior</dd>
+        </div>
+      </dl>
+
+      <div class="device-note" id="deviceNote" role="note">
+        <div
+          class="qr"
+          id="qr"
+          role="img"
+          aria-label="Código QR con el enlace de esta página"
+          hidden
+        ></div>
+        <div>
+          <p id="deviceMsg"></p>
+          <button class="btn ghost sm" id="copyLink" type="button">
+            <svg class="i sm" aria-hidden="true"><use href="#i-copy" /></svg>
+            <span>Copiar enlace de esta página</span>
+          </button>
+        </div>
+      </div>
+
+      <p class="reassure">
+        Tus productos se guardan en tu teléfono. No necesitas crear una cuenta.
+      </p>
+    </div>
+
+    <div>
+      <div class="stage">
+        <div class="phone" aria-hidden="true">
+          <div class="screen">
+            <div class="app-top">
+              Productos <svg class="i"><use href="#i-bell" /></svg>
+            </div>
+            <div class="search">Buscar producto o código</div>
+            <div class="grp">
+              <h4>Vencidos</h4>
+              <div class="row">
+                <div>
+                  <b>Yogur natural</b><small>Lácteos y derivados</small>
+                </div>
+                <span class="chip expired"
+                  ><svg><use href="#s-expired" /></svg>Vencido</span
+                >
+              </div>
+            </div>
+            <div class="grp">
+              <h4>Vencen hoy</h4>
+              <div class="row">
+                <div>
+                  <b>Pan de molde</b><small>Panadería y repostería</small>
+                </div>
+                <span class="chip today"
+                  ><svg><use href="#s-today" /></svg>Vence hoy</span
+                >
+              </div>
+            </div>
+            <div class="grp">
+              <h4>Próximos a vencer</h4>
+              <div class="row">
+                <div><b>Leche entera</b><small>Lácteos y derivados</small></div>
+                <span class="chip soon"
+                  ><svg><use href="#s-soon" /></svg>En 2 días</span
+                >
+              </div>
+            </div>
+            <div class="grp">
+              <h4>Vigentes</h4>
+              <div class="row">
+                <div>
+                  <b>Arroz grado 1</b><small>Pastas, arroz y legumbres</small>
+                </div>
+                <span class="chip active"
+                  ><svg><use href="#s-active" /></svg>Vigente</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="scanner" aria-hidden="true">
+          <div class="found"><i></i>Leche entera · vence en 2 días</div>
+          <div class="frame">
+            <div class="frame-inner">
+              <div class="bars" id="bars"></div>
+              <div class="laser"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="illus">
+        Ilustración con datos de ejemplo, no es una captura de la app.
+      </p>
+    </div>
+  </div>
+</section>

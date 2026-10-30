@@ -1,0 +1,178 @@
+/* =========================================================
+   Vexa – secciones «Funciones» (tarjetas) y «Dos formas de usarla»
+   ========================================================= */
+.bento {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1rem;
+}
+.tile {
+  grid-column: span 2;
+  border-radius: 16px;
+  padding: 1.4rem;
+}
+.tile.w3 {
+  grid-column: span 3;
+}
+.tile.w4 {
+  grid-column: span 4;
+  border-radius: 26px;
+  padding: 1.75rem;
+}
+.tile p {
+  color: var(--muted);
+  font-size: 0.98rem;
+}
+.tile .ico {
+  margin-bottom: 1rem;
+}
+.tile.hl {
+  background: linear-gradient(160deg, var(--bg-3), var(--bg-2));
+}
+.note-small {
+  margin-top: 1.25rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* Línea de tiempo de avisos (7 días → hoy) */
+.when {
+  list-style: none;
+  display: flex;
+  align-items: flex-start;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  position: relative;
+}
+.when::before {
+  content: "";
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  top: 0.55rem;
+  height: 2px;
+  background: var(--line);
+}
+.when li {
+  position: relative;
+  flex: 1;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.when li::before {
+  content: "";
+  display: block;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 50%;
+  margin: 0 auto 0.5rem;
+  background: var(--bg-2);
+  border: 3px solid var(--accent);
+}
+.when li:last-child::before {
+  background: var(--today);
+  border-color: var(--today);
+}
+
+/* Contadores del widget */
+.counters {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  margin-top: 1.1rem;
+}
+.counters div {
+  border-radius: 12px;
+  padding: 0.6rem 0.3rem;
+  text-align: center;
+  background: color-mix(in srgb, var(--c) 14%, var(--bg));
+}
+.counters b {
+  display: block;
+  font-size: 1.6rem;
+  line-height: 1.1;
+  color: var(--c);
+}
+.counters span {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+/* Modo normal / modo simple */
+.modes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.mode {
+  padding: 0 clamp(1.25rem, 4vw, 3rem);
+}
+.mode:first-child {
+  padding-left: 0;
+  border-right: 1px solid var(--line);
+}
+.mode:last-child {
+  padding-right: 0;
+}
+.mode ul {
+  margin: 1rem 0 0;
+  padding-left: 1.2rem;
+  color: var(--muted);
+  display: grid;
+  gap: 0.5rem;
+}
+.mode > p {
+  color: var(--muted);
+}
+.tabbar {
+  display: flex;
+  gap: 0.35rem;
+  margin-top: 1.25rem;
+  flex-wrap: wrap;
+}
+.tabbar span {
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+.tabbar span:nth-child(3) {
+  background: linear-gradient(90deg, var(--btn-a), var(--btn-b));
+  border-color: transparent;
+  color: #fff;
+}
+
+@media (max-width: 960px) {
+  .bento {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .tile,
+  .tile.w3,
+  .tile.w4 {
+    grid-column: span 1;
+  }
+  .tile.w4 {
+    grid-column: span 2;
+  }
+}
+@media (max-width: 760px) {
+  .bento {
+    grid-template-columns: 1fr;
+  }
+  .tile.w4 {
+    grid-column: span 1;
+  }
+  .modes {
+    grid-template-columns: 1fr;
+  }
+  .mode {
+    padding: 0;
+  }
+  .mode:first-child {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+  }
+}

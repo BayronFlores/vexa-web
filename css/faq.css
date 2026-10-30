@@ -1,0 +1,108 @@
+/* =========================================================
+   Vexa – preguntas frecuentes, cierre con botón de descarga y pie de página
+   ========================================================= */
+.faq-grid {
+  display: grid;
+  grid-template-columns: 0.7fr 1.3fr;
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: start;
+}
+details {
+  border-top: 1px solid var(--line);
+}
+details:last-of-type {
+  border-bottom: 1px solid var(--line);
+}
+summary {
+  cursor: pointer;
+  font-weight: 700;
+  padding: 1.1rem 0.25rem;
+  min-height: 3.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  list-style: none;
+}
+summary::-webkit-details-marker {
+  display: none;
+}
+summary::after {
+  content: "";
+  width: 0.6rem;
+  height: 0.6rem;
+  border-right: 2px solid var(--accent);
+  border-bottom: 2px solid var(--accent);
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+  flex: none;
+  margin-right: 0.3rem;
+}
+details[open] summary::after {
+  transform: rotate(-135deg);
+}
+summary:hover {
+  color: var(--accent);
+}
+details p {
+  color: var(--muted);
+  padding: 0 0.25rem 1.25rem;
+  max-width: 40rem;
+}
+
+/* Cierre */
+.final {
+  text-align: center;
+  padding: clamp(3.5rem, 8vw, 6rem) 0;
+  border-top: 1px solid var(--line);
+  background: linear-gradient(180deg, var(--bg), var(--bg-2));
+}
+.final p {
+  color: var(--muted);
+  max-width: 32rem;
+  margin: 0 auto 1.75rem;
+}
+.final .meta {
+  justify-content: center;
+}
+
+/* Pie */
+footer {
+  padding: 2.5rem 0 3rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+  border-top: 1px solid var(--line);
+}
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem 3rem;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.foot p {
+  margin-top: 0.6rem;
+  max-width: 26rem;
+}
+.foot nav {
+  display: flex;
+  gap: 0.5rem 1.4rem;
+  flex-wrap: wrap;
+}
+.foot nav a {
+  color: var(--muted);
+}
+.foot nav a:hover {
+  color: var(--ink);
+}
+
+@media (max-width: 760px) {
+  .faq-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  summary::after {
+    transition: none;
+  }
+}

@@ -1,0 +1,80 @@
+<!-- ================= Estados ================= -->
+<section class="sec tint" id="estados" aria-labelledby="t-estados">
+  <div class="wrap">
+    <div class="estados-head">
+      <div>
+        <h2 id="t-estados">Cada producto, un estado claro</h2>
+        <p class="sub">
+          Vexa calcula el estado a partir de la fecha de vencimiento. Cada uno
+          combina color, ícono y etiqueta, así no dependes solo del color para
+          distinguirlos.
+        </p>
+      </div>
+      <div class="probe">
+        <p class="probe-title" id="probeLabel">
+          Pruébalo: mueve la fecha de vencimiento
+        </p>
+        <div class="probe-card">
+          <div>
+            <b>Leche entera</b
+            ><small id="probeText" aria-live="polite">Vence en 2 días</small>
+          </div>
+          <span class="chip soon" id="probeChip"
+            ><svg aria-hidden="true"><use href="#s-soon" /></svg
+            ><span>Próximo a vencer</span></span
+          >
+        </div>
+        <input
+          type="range"
+          id="probeRange"
+          min="-5"
+          max="20"
+          value="2"
+          aria-labelledby="probeLabel"
+        />
+        <div class="probe-scale" aria-hidden="true">
+          <span>Venció hace 5 días</span><span>Vence en 20 días</span>
+        </div>
+      </div>
+    </div>
+
+    <ol
+      class="axis"
+      aria-label="Estados de un producto, de más urgente a menos urgente"
+    >
+      <li class="expired">
+        <h3>
+          <svg class="i" aria-hidden="true"><use href="#s-expired" /></svg
+          >Vencido
+        </h3>
+        <p>La fecha ya pasó.</p>
+      </li>
+      <li class="today">
+        <h3>
+          <svg class="i" aria-hidden="true"><use href="#s-today" /></svg>Vence
+          hoy
+        </h3>
+        <p>Último día.</p>
+      </li>
+      <li class="soon">
+        <h3>
+          <svg class="i" aria-hidden="true"><use href="#s-soon" /></svg>Próximo
+          a vencer
+        </h3>
+        <p>Queda poco tiempo para usarlo.</p>
+        <small>Hasta 7 días por defecto. Tú lo ajustas entre 1 y 30.</small>
+      </li>
+      <li class="active">
+        <h3>
+          <svg class="i" aria-hidden="true"><use href="#s-active" /></svg
+          >Vigente
+        </h3>
+        <p>Todo en orden: falta más que el plazo de aviso.</p>
+      </li>
+    </ol>
+    <p class="axis-note">
+      Los productos que registras sin fecha quedan como «Sin fecha», para que
+      los completes cuando puedas.
+    </p>
+  </div>
+</section>

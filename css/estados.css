@@ -1,0 +1,160 @@
+/* =========================================================
+   Vexa – sección «Estados»: probador con deslizador y línea de estados
+   ========================================================= */
+.estados-head {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+.estados-head .sub {
+  margin-bottom: 0;
+}
+
+/* Probador */
+.probe {
+  padding: 1.4rem;
+  border-radius: 24px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+}
+.probe-title {
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+.probe-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.1rem;
+  border-radius: 16px;
+  margin-bottom: 1.25rem;
+}
+.probe-card b {
+  display: block;
+  font-size: 1.1rem;
+}
+.probe-card small {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+.probe .chip {
+  font-size: 0.88rem;
+  padding: 0.35rem 0.75rem;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+.probe .chip svg {
+  width: 1.05rem;
+  height: 1.05rem;
+}
+.probe input[type="range"] {
+  width: 100%;
+  accent-color: var(--accent);
+  height: 2rem;
+  cursor: pointer;
+  margin: 0;
+}
+.probe-scale {
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+/* Línea de estados (de más a menos urgente). `.on` la marca el probador */
+.axis {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 2fr 1.6fr 3fr 3.4fr;
+  gap: 6px;
+}
+.axis li {
+  position: relative;
+  padding: 1.1rem 1.1rem 1.2rem;
+  border-radius: 6px 6px 16px 16px;
+  background: color-mix(in srgb, var(--c) 13%, var(--bg));
+  border-top: 5px solid var(--c);
+  min-height: 9.5rem;
+}
+.axis li:first-child {
+  border-top-left-radius: 16px;
+}
+.axis li:nth-child(4) {
+  border-top-right-radius: 16px;
+}
+.axis h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--c);
+}
+.axis h3 svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+.axis p {
+  color: var(--ink);
+  font-size: 0.96rem;
+}
+.axis small {
+  display: block;
+  margin-top: 0.55rem;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+.axis li {
+  transition:
+    background 0.15s ease,
+    box-shadow 0.15s ease;
+}
+.axis li.on {
+  box-shadow: 0 0 0 2px var(--c);
+  background: color-mix(in srgb, var(--c) var(--tint-on), var(--bg));
+}
+.axis-note {
+  margin-top: 1.4rem;
+  color: var(--muted);
+  max-width: 44rem;
+}
+
+@media (max-width: 960px) {
+  .axis {
+    grid-template-columns: 1fr 1fr;
+  }
+  .axis li {
+    border-radius: 6px 6px 16px 16px;
+  }
+  .axis li:first-child {
+    border-top-left-radius: 16px;
+  }
+  .axis li:nth-child(2) {
+    border-top-right-radius: 16px;
+  }
+}
+@media (max-width: 760px) {
+  .estados-head {
+    grid-template-columns: 1fr;
+  }
+  .axis {
+    grid-template-columns: 1fr;
+  }
+  .axis li {
+    min-height: 0;
+    border-radius: 6px 6px 16px 16px;
+  }
+  .axis li:first-child {
+    border-top-left-radius: 16px;
+  }
+  .axis li:nth-child(2) {
+    border-top-right-radius: 6px;
+  }
+  .axis li:nth-child(4) {
+    border-top-right-radius: 16px;
+  }
+}

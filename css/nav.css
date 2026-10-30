@@ -1,0 +1,113 @@
+/* =========================================================
+   Vexa – barra de navegación, menú móvil y botón de tema
+   ========================================================= */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding-top: env(safe-area-inset-top, 0);
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+.nav .wrap {
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-weight: 800;
+  font-size: 1.35rem;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  text-decoration: none;
+  margin-right: auto;
+}
+.brand svg {
+  width: 32px;
+  height: 32px;
+}
+.brand.flat {
+  margin: 0;
+}
+.links {
+  display: flex;
+  gap: 1.6rem;
+}
+.links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.4rem 0;
+}
+.links a:hover {
+  color: var(--ink);
+}
+.menu-btn,
+.theme-btn {
+  flex: none;
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--ink);
+  width: 2.75rem;
+  height: 2.75rem;
+  place-items: center;
+  cursor: pointer;
+}
+.menu-btn:hover,
+.theme-btn:hover {
+  background: var(--bg-2);
+}
+.menu-btn {
+  display: none;
+}
+.theme-btn {
+  display: grid;
+}
+
+/* En escritorio el enlace «Descargar APK» del menú sobra: ya está el botón de la barra */
+@media (min-width: 761px) {
+  .links a.menu-dl {
+    display: none;
+  }
+}
+
+/* Móvil: menú desplegable */
+@media (max-width: 760px) {
+  .menu-btn {
+    display: grid;
+  }
+  .nav .btn {
+    display: none;
+  }
+  .links {
+    display: none;
+    position: absolute;
+    top: calc(var(--nav-h) + env(safe-area-inset-top, 0px));
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 0;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    padding: 0.5rem var(--gutter) 1rem;
+  }
+  .links.open {
+    display: flex;
+  }
+  .links a {
+    padding: 0.85rem 0;
+    font-size: 1.05rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .links a.menu-dl {
+    color: var(--accent);
+    font-weight: 700;
+    border-bottom: 0;
+  }
+}
