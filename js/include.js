@@ -10,6 +10,7 @@
     "js/utils.js",
     "js/config.js",
     "js/release.js",
+    "js/capturas.js",
     "js/hero.js",
     "js/probe.js",
     "js/nav.js",

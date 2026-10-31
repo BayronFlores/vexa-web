@@ -9,7 +9,7 @@ index.html              esqueleto: <head> (título, SEO, estilos) y la lista de 
 partials/               el contenido, una parte por archivo (se cargan solos al abrir la página)
   nav.html              «Saltar al contenido» y barra de navegación
   footer.html           pie de página
-  sections/             hero, band, estados, funciones, modos, privacidad, instalar, permisos,
+  sections/             hero, band, capturas, estados, funciones, modos, privacidad, instalar, permisos,
                         novedades, faq, cierre
 css/                    un archivo por sección, en el orden en que aparecen
   tokens.css            colores, tipografía y medidas (tema claro y oscuro)
@@ -17,6 +17,7 @@ css/                    un archivo por sección, en el orden en que aparecen
   nav.css               barra de navegación y menú móvil
   hero.css              portada: titular, aviso con QR, teléfono y escáner
   band.css              franja de cifras
+  capturas.css          «Así se ve Vexa»: lista de pantallas y teléfono grande
   estados.css           probador de estados y línea de estados
   funciones.css         tarjetas de funciones y «Dos formas de usarla»
   privacidad.css        «Tus datos» y diagrama de qué sale del teléfono
@@ -32,10 +33,14 @@ js/
   utils.js              funciones compartidas (Vexa.$, Vexa.copyText, …)
   release.js            versión, huella, tamaño del APK y novedades
   hero.js               código de barras decorativo y aviso de dispositivo con QR
+  capturas.js           selector de pantallas (pestañas) de «Así se ve Vexa»
   probe.js              probador de estados
   nav.js                menú móvil y botón de tema
   vendor/qrcode.js      generador de QR (MIT, Kazuhiko Arase)
 img/og-image.png        imagen que se ve al compartir el enlace (1200×630)
+img/capturas/           capturas de la app en WebP (600×1200). Para cambiar una, reemplaza el archivo
+                        con el mismo nombre; para agregar otra, copia un botón
+                        .show-tab y una <img class="show-img"> en partials/sections/capturas.html
 vexa.apk                ← súbelo tú, junto a index.html
 ```
 

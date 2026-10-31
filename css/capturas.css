@@ -1,0 +1,172 @@
+/* =========================================================
+   Vexa – «Así se ve Vexa»: lista de pantallas + teléfono grande
+   (el marco usa su propia clase para no heredar la animación
+   flotante del teléfono de la portada)
+   ========================================================= */
+.showcase {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: center;
+}
+.show-side .sub {
+  margin-bottom: 1.5rem;
+}
+
+/* ---------- Lista de pantallas ---------- */
+.show-list {
+  position: relative;
+  display: grid;
+  gap: 0.25rem;
+  max-width: 28rem;
+}
+.show-tab {
+  display: grid;
+  gap: 0.2rem;
+  text-align: left;
+  font: inherit;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid transparent;
+  border-left: 3px solid var(--line);
+  border-radius: 0 14px 14px 0;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+.show-tab b {
+  font-weight: 700;
+}
+.show-tab span {
+  display: none;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+.show-tab:hover {
+  color: var(--ink);
+}
+.show-tab[aria-selected="true"] {
+  color: var(--ink);
+  background: var(--bg-2);
+  border-color: var(--line);
+  border-left-color: var(--accent);
+}
+.show-tab[aria-selected="true"] span {
+  display: block;
+  color: var(--muted);
+}
+
+/* ---------- Teléfono grande ---------- */
+.show-stage {
+  position: relative;
+  display: grid;
+  justify-items: center;
+}
+.show-stage::before {
+  content: "";
+  position: absolute;
+  inset: 4% 0;
+  background: radial-gradient(closest-side, var(--glow), transparent);
+  pointer-events: none;
+}
+.shot-phone {
+  position: relative;
+  width: min(310px, 72vw);
+  padding: 8px;
+  border-radius: 38px;
+  background: #1b1c2b;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow:
+    0 40px 80px -30px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(0, 0, 0, 0.4);
+}
+.show-imgs {
+  display: grid;
+  border-radius: 30px;
+  overflow: hidden;
+  background: #0c0d18;
+}
+.show-img {
+  grid-area: 1 / 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 2;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.show-img.is-on {
+  opacity: 1;
+}
+
+/* Descripción bajo el teléfono: solo en móvil (en escritorio ya está en la lista) */
+.show-desc {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .showcase {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .show-side {
+    display: contents;
+  }
+  .show-head {
+    order: 0;
+  }
+  .show-head .sub {
+    margin-bottom: 0.5rem;
+  }
+  .show-stage {
+    order: 1;
+  }
+  .show-list {
+    order: 2;
+  }
+  .show-desc {
+    order: 3;
+    display: block;
+    text-align: center;
+    color: var(--muted);
+    min-height: 3.2em; /* evita saltos al cambiar de texto */
+    max-width: 22rem;
+    margin-inline: auto;
+  }
+  /* La lista pasa a botones que se deslizan de lado */
+  .show-list {
+    display: flex;
+    gap: 0.5rem;
+    max-width: none;
+    overflow-x: auto;
+    margin-inline: calc(-1 * var(--gutter));
+    padding: 0.25rem var(--gutter) 0.5rem;
+    scrollbar-width: none;
+  }
+  .show-list::-webkit-scrollbar {
+    display: none;
+  }
+  .show-tab {
+    flex: none;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 0.45rem 0.95rem;
+  }
+  .show-tab[aria-selected="true"] {
+    color: #fff;
+    background: linear-gradient(90deg, var(--btn-a), var(--btn-b));
+    border-color: transparent;
+  }
+  .show-tab[aria-selected="true"] span {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .show-img,
+  .show-tab {
+    transition: none;
+  }
+}
