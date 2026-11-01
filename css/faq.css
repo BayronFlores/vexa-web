@@ -4,7 +4,7 @@
 .faq-grid {
   display: grid;
   grid-template-columns: 0.7fr 1.3fr;
-  gap: clamp(2rem, 6vw, 5rem);
+  gap: clamp(2rem, 5vw, 5rem);
   align-items: start;
 }
 details {
@@ -16,7 +16,7 @@ details:last-of-type {
 summary {
   cursor: pointer;
   font-weight: 700;
-  padding: 1.1rem 0.25rem;
+  padding: clamp(0.7rem, calc(1.8 * var(--vh)), 1.1rem) 0.25rem;
   min-height: 3.25rem;
   display: flex;
   align-items: center;
@@ -53,7 +53,7 @@ details p {
 /* Cierre */
 .final {
   text-align: center;
-  padding: clamp(3.5rem, 8vw, 6rem) 0;
+  padding: var(--sec-y) 0;
   border-top: 1px solid var(--line);
   background: linear-gradient(180deg, var(--bg), var(--bg-2));
 }

@@ -4,12 +4,12 @@
 .bento {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  gap: 1rem;
+  gap: clamp(0.7rem, calc(2.2 * var(--vh)), 1rem);
 }
 .tile {
   grid-column: span 2;
   border-radius: 16px;
-  padding: 1.4rem;
+  padding: clamp(1rem, calc(2.4 * var(--vh)), 1.4rem);
 }
 .tile.w3 {
   grid-column: span 3;
@@ -17,14 +17,14 @@
 .tile.w4 {
   grid-column: span 4;
   border-radius: 26px;
-  padding: 1.75rem;
+  padding: clamp(1.1rem, calc(3 * var(--vh)), 1.75rem);
 }
 .tile p {
   color: var(--muted);
   font-size: 0.98rem;
 }
 .tile .ico {
-  margin-bottom: 1rem;
+  margin-bottom: clamp(0.6rem, calc(1.6 * var(--vh)), 1rem);
 }
 .tile.hl {
   background: linear-gradient(160deg, var(--bg-3), var(--bg-2));

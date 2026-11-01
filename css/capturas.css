@@ -6,19 +6,21 @@
 .showcase {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: clamp(2rem, 6vw, 5rem);
+  gap: clamp(2rem, 5vw, 5rem);
   align-items: center;
 }
 .show-side .sub {
-  margin-bottom: 1.5rem;
+  margin-bottom: clamp(0.75rem, calc(2.4 * var(--vh)), 1.5rem);
 }
 
 /* ---------- Lista de pantallas ---------- */
 .show-list {
   position: relative;
+  /* Dos columnas cuando hay ancho: la lista de 11 pantallas ocupa la mitad del alto */
   display: grid;
-  gap: 0.25rem;
-  max-width: 28rem;
+  grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr));
+  gap: 0.25rem 0.5rem;
+  max-width: 36rem;
 }
 .show-tab {
   display: grid;
@@ -30,7 +32,7 @@
   border: 1px solid transparent;
   border-left: 3px solid var(--line);
   border-radius: 0 14px 14px 0;
-  padding: 0.5rem 1rem;
+  padding: clamp(0.3rem, calc(0.9 * var(--vh)), 0.5rem) 1rem;
   cursor: pointer;
   transition:
     background 0.2s ease,
@@ -41,8 +43,6 @@
 }
 .show-tab span {
   display: none;
-  font-size: 0.95rem;
-  line-height: 1.45;
 }
 .show-tab:hover {
   color: var(--ink);
@@ -52,10 +52,6 @@
   background: var(--bg-2);
   border-color: var(--line);
   border-left-color: var(--accent);
-}
-.show-tab[aria-selected="true"] span {
-  display: block;
-  color: var(--muted);
 }
 
 /* ---------- Teléfono grande ---------- */
@@ -102,9 +98,14 @@
   opacity: 1;
 }
 
-/* Descripción bajo el teléfono: solo en móvil (en escritorio ya está en la lista) */
+/* Descripción de la pantalla elegida: bajo la lista en escritorio, bajo el teléfono en móvil */
 .show-desc {
-  display: none;
+  margin-top: clamp(0.6rem, calc(2 * var(--vh)), 1.1rem);
+  max-width: 36rem;
+  min-height: 3em; /* evita saltos al cambiar de texto */
+  color: var(--muted);
+  font-size: 0.98rem;
+  line-height: 1.5;
 }
 
 @media (max-width: 760px) {
@@ -129,12 +130,13 @@
   }
   .show-desc {
     order: 3;
-    display: block;
+    margin-top: 0;
     text-align: center;
-    color: var(--muted);
-    min-height: 3.2em; /* evita saltos al cambiar de texto */
+    min-height: 3.2em;
     max-width: 22rem;
     margin-inline: auto;
+    font-size: inherit;
+    line-height: inherit;
   }
   /* La lista pasa a botones que se deslizan de lado */
   .show-list {
@@ -160,8 +162,18 @@
     background: linear-gradient(90deg, var(--btn-a), var(--btn-b));
     border-color: transparent;
   }
-  .show-tab[aria-selected="true"] span {
-    display: none;
+}
+/* Escritorio: el teléfono se ajusta al alto de la ventana (la captura es 1 : 2) */
+@media (min-width: 761px) {
+  .shot-phone {
+    width: min(
+      310px,
+      72vw,
+      max(
+        200px,
+        calc((var(--avail) - 2 * var(--sec-y) + 18px) / 2)
+      )
+    );
   }
 }
 @media (prefers-reduced-motion: reduce) {

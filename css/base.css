@@ -47,7 +47,7 @@ svg.i.sm {
   border-radius: 6px;
 }
 .wrap {
-  width: min(1120px, 100% - 2 * var(--gutter));
+  width: min(var(--wrap-max), 100% - 2 * var(--gutter));
   margin-inline: auto;
 }
 .skip {
@@ -78,6 +78,15 @@ h1 {
   letter-spacing: -0.025em;
   margin: 0 0 1.2rem;
 }
+@media (min-width: 761px) {
+  h1 {
+    font-size: clamp(2.1rem, min(5.6vw, calc(7.8 * var(--vh))), 4.3rem);
+    margin-bottom: clamp(0.6rem, calc(2.2 * var(--vh)), 1.2rem);
+  }
+  h2 {
+    font-size: clamp(1.6rem, min(3.8vw, calc(5.6 * var(--vh))), 2.5rem);
+  }
+}
 h2 {
   font-weight: 800;
   font-size: clamp(1.7rem, 3.8vw, 2.5rem);
@@ -97,7 +106,7 @@ p {
 .sub {
   color: var(--muted);
   max-width: 38rem;
-  margin-bottom: 2.25rem;
+  margin-bottom: var(--gap-y);
 }
 .sub.flush {
   margin-bottom: 0;
@@ -105,7 +114,7 @@ p {
 
 /* ---------- Secciones ---------- */
 .sec {
-  padding: clamp(3.5rem, 8vw, 6.25rem) 0;
+  padding: var(--sec-y) 0;
 }
 .sec.tint {
   background: var(--bg-2);
@@ -275,6 +284,12 @@ p {
   html {
     scroll-behavior: auto;
   }
+}
+
+/* Al ir a una sección desde el menú, su título queda justo bajo la barra y no a un «padding» de distancia.
+   (El inicio no se corre: ahí se muestra la página desde arriba.) */
+main section[id]:not(#inicio) {
+  scroll-margin-top: calc(-1 * (var(--sec-y) - 0.5rem));
 }
 
 /* include.js oculta el contenido mientras arma la página, para que no se vea a medias */

@@ -6,7 +6,7 @@
   overflow: hidden;
   color: #fff;
   background: linear-gradient(115deg, #1a35ff 0%, #4a22f5 55%, #7b19fc 100%);
-  padding: clamp(3.5rem, 8vw, 6rem) 0;
+  padding: var(--sec-y) 0;
 }
 .band::before {
   content: "";
@@ -36,6 +36,12 @@
   max-width: 17ch;
   text-wrap: balance;
   margin-bottom: clamp(2rem, 5vw, 3.5rem);
+}
+@media (min-width: 761px) {
+  .band-text {
+    font-size: clamp(2.1rem, min(6vw, calc(8 * var(--vh))), 4.4rem);
+    margin-bottom: var(--gap-y);
+  }
 }
 .stats {
   list-style: none;

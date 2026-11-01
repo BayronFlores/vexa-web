@@ -28,8 +28,17 @@
   --font:
     "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", Roboto,
     sans-serif;
-  --gutter: clamp(1.1rem, 4vw, 2rem);
+  --gutter: clamp(1.1rem, 3.5vw, 3rem);
   --nav-h: 4rem;
+  --wrap-max: 1320px;
+
+  /* Alto de la ventana: 1svh si el navegador lo conoce (móvil con barra de direcciones) */
+  --vh: 1vh;
+  /* Espacio útil en vertical: la ventana menos la barra de arriba */
+  --avail: calc(100 * var(--vh) - var(--nav-h) - env(safe-area-inset-top, 0px));
+  /* Aire arriba y abajo de cada sección (en escritorio se ajusta al alto, ver abajo) */
+  --sec-y: clamp(3.5rem, 8vw, 6.25rem);
+  --gap-y: 2.25rem;
 
   /* Intensidad del tinte de color de estado. En claro es menor para mantener contraste ≥ 4,5:1 */
   --tint-chip: 17%;
@@ -37,6 +46,20 @@
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
+}
+@supports (height: 1svh) {
+  :root {
+    --vh: 1svh;
+  }
+}
+
+/* Escritorio y tablet horizontal: el aire y los espacios crecen o se encogen con el alto de la ventana,
+   para que cada sección quepa en una pantalla (en móvil se scrollea normal). */
+@media (min-width: 761px) {
+  :root {
+    --sec-y: clamp(1.25rem, calc(8.5 * var(--vh)), 6.25rem);
+    --gap-y: clamp(0.9rem, calc(3.6 * var(--vh)), 2.5rem);
+  }
 }
 
 /* Tema claro: el sistema lo pide y la persona no eligió oscuro */
