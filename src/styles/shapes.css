@@ -1,0 +1,950 @@
+/* =========================================================
+   Vexa – formas: círculos, anillos, manchas, símbolos, bordes curvos
+   entre secciones y tarjetas con esquinas distintas.
+   Solo usa los colores que ya existen en tokens.css (--accent, --btn-a,
+   --btn-b y los de estado), así sigue el tema claro/oscuro solo.
+
+   ► Las formas sueltas son <i class="sh …"> dentro de un <div class="deco">.
+     Tipo:   ring · disc · blob · dots · plus · spark · tri · squig · dia · half · shield
+     Color:  (sin clase = --accent) k2 = --btn-b · k3 = --btn-a
+             ke/kt/ks/ka = estados (vencido/hoy/próximo/vigente) · kw = blanco
+     La posición de cada una está en la sección «Posiciones» de este archivo.
+   ========================================================= */
+
+/* ---------- Base: capa decorativa detrás del contenido ---------- */
+.sec,
+.final {
+  position: relative;
+  overflow: hidden;
+  overflow: clip;
+}
+.sec > .wrap,
+.final > .wrap,
+.band > .wrap {
+  position: relative;
+  z-index: 1;
+}
+.deco {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.sh {
+  position: absolute;
+  display: block;
+  color: var(--accent);
+  opacity: 0.4;
+}
+.k2 {
+  color: var(--btn-b);
+}
+.k3 {
+  color: var(--btn-a);
+}
+.ke {
+  color: var(--expired);
+}
+.kt {
+  color: var(--today);
+}
+.ks {
+  color: var(--soon);
+}
+.ka {
+  color: var(--active);
+}
+.kw {
+  color: #fff;
+}
+
+/* ---------- Tipos de forma ---------- */
+.ring {
+  border: 2px solid currentColor;
+  border-radius: 50%;
+}
+.ring.thick {
+  border-width: clamp(0.6rem, 1.4vw, 1.1rem);
+  opacity: 0.13;
+}
+.disc {
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.12;
+}
+.blob {
+  background: currentColor;
+  opacity: 0.13;
+  border-radius: 62% 38% 55% 45% / 45% 58% 42% 55%;
+}
+.dots {
+  background: radial-gradient(currentColor 1.7px, transparent 2.2px) 0 0 / 16px
+    16px;
+  opacity: 0.45;
+}
+.dia {
+  border: 2px solid currentColor;
+  border-radius: 18%;
+  rotate: 45deg;
+}
+.half {
+  background: currentColor;
+  border-radius: 999px 999px 0 0;
+  opacity: 0.14;
+}
+.tri {
+  background: currentColor;
+  clip-path: polygon(50% 8%, 96% 92%, 4% 92%);
+}
+/* Símbolos con máscara: se pintan con el color de la clase */
+.plus,
+.spark,
+.squig,
+.shield {
+  background: currentColor;
+  -webkit-mask: var(--m) center / contain no-repeat;
+  mask: var(--m) center / contain no-repeat;
+}
+.plus {
+  --m: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M10 2h4v8h8v4h-8v8h-4v-8H2v-4h8z'/%3E%3C/svg%3E");
+}
+.spark {
+  --m: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0c1 7 5 11 12 12-7 1-11 5-12 12-1-7-5-11-12-12 7-1 11-5 12-12z'/%3E%3C/svg%3E");
+}
+.squig {
+  --m: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 24'%3E%3Cpath d='M3 12c9-14 18-14 27 0s18 14 27 0 18-14 27 0 18 14 27 0' fill='none' stroke='black' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+.shield {
+  --m: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 1.5l8.5 3.2v6.6c0 5.2-3.6 9.6-8.5 11.2-4.9-1.6-8.5-6-8.5-11.2V4.7z'/%3E%3C/svg%3E");
+  opacity: 0.08;
+}
+
+/* Cuadrados y círculos pequeños de color de estado (los de la app) */
+.sh.dot {
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.75;
+}
+
+/* ---------- Posiciones ---------- */
+/* Portada */
+.hero .deco {
+  overflow: hidden;
+}
+.hero .d1 {
+  right: -9%;
+  top: -6%;
+  width: clamp(16rem, 36vw, 34rem);
+  aspect-ratio: 1;
+}
+.hero .d2 {
+  right: 5%;
+  top: 9%;
+  width: clamp(9rem, 20vw, 19rem);
+  aspect-ratio: 1;
+  opacity: 0.22;
+}
+.hero .d3 {
+  left: -7%;
+  bottom: -20%;
+  width: clamp(14rem, 28vw, 26rem);
+  aspect-ratio: 1.1;
+}
+.hero .d4 {
+  left: 1%;
+  top: 1.5%;
+  width: 7rem;
+  height: 3rem;
+}
+.hero .d5 {
+  left: 57%;
+  top: 30%;
+  width: 1.7rem;
+  aspect-ratio: 1;
+}
+.hero .d6 {
+  left: 47%;
+  bottom: 8%;
+  width: 1.5rem;
+  aspect-ratio: 1;
+  rotate: 18deg;
+  opacity: 0.5;
+}
+.hero .d7 {
+  left: 30%;
+  top: 1.2%;
+  width: 6rem;
+  aspect-ratio: 5;
+  opacity: 0.35;
+}
+.hero .d8 {
+  right: 2%;
+  bottom: 22%;
+  width: 2.4rem;
+  aspect-ratio: 1;
+}
+.hero .d9 {
+  right: 36%;
+  top: 14%;
+  width: 0.85rem;
+  aspect-ratio: 1;
+}
+.hero .d10 {
+  right: 41%;
+  bottom: 13%;
+  width: 0.7rem;
+  aspect-ratio: 1;
+}
+/* Disco de color detrás del teléfono */
+.stage {
+  isolation: isolate;
+}
+.stage::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 4% -10% 8% -16%;
+  border-radius: 50%;
+  background: linear-gradient(
+    155deg,
+    color-mix(in srgb, var(--btn-a) 50%, transparent),
+    color-mix(in srgb, var(--btn-b) 18%, transparent) 70%,
+    transparent
+  );
+}
+
+/* Franja de cifras */
+.band .d1 {
+  right: -5%;
+  top: -34%;
+  width: 28rem;
+  aspect-ratio: 1;
+  opacity: 0.2;
+}
+.band .d2 {
+  left: -4%;
+  bottom: -46%;
+  width: 22rem;
+  aspect-ratio: 1;
+  opacity: 0.09;
+}
+.band .d3 {
+  right: 36%;
+  top: 14%;
+  width: 1.5rem;
+  aspect-ratio: 1;
+  opacity: 0.4;
+}
+.band .d4 {
+  left: 44%;
+  bottom: 8%;
+  width: 2rem;
+  aspect-ratio: 1;
+  opacity: 0.4;
+}
+.band .d5 {
+  left: 2%;
+  top: 14%;
+  width: 6rem;
+  height: 4rem;
+  opacity: 0.3;
+}
+.band .d6 {
+  right: 8%;
+  bottom: 6%;
+  width: 4.5rem;
+  aspect-ratio: 1;
+  opacity: 0.22;
+}
+
+/* Capturas (detrás del teléfono grande) */
+.show-stage .deco {
+  inset: -4% -8%;
+}
+.show-stage .d1 {
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  width: min(92%, 29rem);
+  aspect-ratio: 1;
+}
+.show-stage .d2 {
+  right: 2%;
+  top: 6%;
+  width: 7rem;
+  aspect-ratio: 1.15;
+}
+.show-stage .d3 {
+  left: 4%;
+  bottom: 12%;
+  width: 1.8rem;
+  aspect-ratio: 1;
+}
+.show-stage .d4 {
+  right: 6%;
+  bottom: 22%;
+  width: 2.2rem;
+  aspect-ratio: 1;
+  opacity: 0.55;
+}
+.show-stage .d5 {
+  left: 2%;
+  top: 14%;
+  width: 5rem;
+  height: 4rem;
+}
+.show-stage .d6 {
+  left: 10%;
+  top: 40%;
+  width: 0.8rem;
+  aspect-ratio: 1;
+}
+.show-stage .shot-phone {
+  z-index: 1;
+}
+
+/* Estados */
+#estados .d1 {
+  right: 3%;
+  top: 6%;
+  width: 4rem;
+  aspect-ratio: 1;
+}
+#estados .d2 {
+  right: 11%;
+  top: 22%;
+  width: 2.4rem;
+  aspect-ratio: 1;
+}
+#estados .d3 {
+  left: 2%;
+  bottom: 9%;
+  width: 3rem;
+  aspect-ratio: 1;
+}
+#estados .d4 {
+  left: 8%;
+  bottom: 28%;
+  width: 1.6rem;
+  aspect-ratio: 1;
+}
+#estados .d5 {
+  left: 45%;
+  top: 3%;
+  width: 6rem;
+  height: 3.5rem;
+}
+#estados .d6 {
+  right: 1.5%;
+  bottom: 10%;
+  width: 1.4rem;
+  aspect-ratio: 1;
+  rotate: 14deg;
+  opacity: 0.5;
+}
+.probe {
+  position: relative;
+  overflow: hidden;
+}
+.probe::after {
+  content: "";
+  position: absolute;
+  right: -2.4rem;
+  bottom: -2.4rem;
+  width: 7rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent) 11%, transparent);
+  pointer-events: none;
+}
+
+/* Funciones */
+#funciones .d1 {
+  right: -6%;
+  top: 4%;
+  width: 22rem;
+  aspect-ratio: 1.1;
+}
+#funciones .d2 {
+  left: -5%;
+  bottom: 4%;
+  width: 16rem;
+  aspect-ratio: 1;
+  opacity: 0.25;
+}
+#funciones .d3 {
+  right: 4%;
+  bottom: 5%;
+  width: 1.6rem;
+  aspect-ratio: 1;
+}
+#funciones .d4 {
+  left: 38%;
+  top: 2%;
+  width: 6rem;
+  height: 3.2rem;
+}
+#funciones .d5 {
+  left: 1.5%;
+  top: 8%;
+  width: 2rem;
+  aspect-ratio: 1;
+  opacity: 0.5;
+}
+
+/* Modos */
+#modos .d1 {
+  right: -7%;
+  bottom: -30%;
+  width: 24rem;
+  aspect-ratio: 1;
+}
+#modos .d2 {
+  left: 3%;
+  top: 10%;
+  width: 5rem;
+  aspect-ratio: 1;
+}
+#modos .d3 {
+  right: 9%;
+  top: 14%;
+  width: 1.6rem;
+  aspect-ratio: 1;
+  rotate: -12deg;
+  opacity: 0.5;
+}
+#modos .d4 {
+  right: 3%;
+  top: 42%;
+  width: 6rem;
+  height: 5rem;
+}
+#modos .d5 {
+  left: 40%;
+  bottom: 9%;
+  width: 2.2rem;
+  aspect-ratio: 1;
+  opacity: 0.5;
+}
+
+/* Privacidad */
+#privacidad .d1 {
+  right: 2%;
+  top: 50%;
+  translate: 0 -50%;
+  width: clamp(14rem, 26vw, 24rem);
+  aspect-ratio: 1;
+}
+#privacidad .d2 {
+  left: -6%;
+  bottom: -12%;
+  width: 18rem;
+  aspect-ratio: 1;
+  opacity: 0.28;
+}
+#privacidad .d3 {
+  left: 30%;
+  top: 3%;
+  width: 6rem;
+  height: 4rem;
+}
+#privacidad .d4 {
+  right: 36%;
+  top: 6%;
+  width: 1.6rem;
+  aspect-ratio: 1;
+}
+#privacidad .d5 {
+  right: 5%;
+  bottom: 8%;
+  width: 2.2rem;
+  aspect-ratio: 1;
+  opacity: 0.55;
+}
+
+/* Instalación */
+#instalar .d1 {
+  right: 2%;
+  top: 8%;
+  width: 6rem;
+  height: 4rem;
+}
+#instalar .d2 {
+  right: -6%;
+  bottom: -14%;
+  width: 18rem;
+  aspect-ratio: 1;
+}
+#instalar .d3 {
+  left: -4%;
+  bottom: 6%;
+  width: 11rem;
+  aspect-ratio: 2;
+}
+#instalar .d4 {
+  left: 40%;
+  top: 3%;
+  width: 6.5rem;
+  aspect-ratio: 5;
+  opacity: 0.35;
+}
+#instalar .d5 {
+  right: 22%;
+  bottom: 9%;
+  width: 1.6rem;
+  aspect-ratio: 1;
+}
+
+/* Permisos */
+.perm-sec .d1 {
+  right: -5%;
+  top: 6%;
+  width: 20rem;
+  aspect-ratio: 1.1;
+}
+.perm-sec .d2 {
+  right: 9%;
+  bottom: 12%;
+  width: 3.4rem;
+  aspect-ratio: 1;
+}
+.perm-sec .d3 {
+  left: 1.5%;
+  bottom: 8%;
+  width: 6rem;
+  height: 4rem;
+}
+.perm-sec .d4 {
+  right: 32%;
+  top: 8%;
+  width: 1.7rem;
+  aspect-ratio: 1;
+}
+
+/* Novedades */
+#novedades .d1 {
+  right: 4%;
+  top: 8%;
+  width: 7rem;
+  aspect-ratio: 5;
+  opacity: 0.35;
+}
+#novedades .d2 {
+  left: -5%;
+  bottom: -10%;
+  width: 13rem;
+  aspect-ratio: 1;
+}
+#novedades .d3 {
+  right: 12%;
+  bottom: 14%;
+  width: 1.7rem;
+  aspect-ratio: 1;
+}
+
+/* Preguntas */
+#faq .d1 {
+  right: -6%;
+  top: 4%;
+  width: 20rem;
+  aspect-ratio: 1;
+  opacity: 0.25;
+}
+#faq .d2 {
+  left: 4%;
+  bottom: 10%;
+  width: 2.4rem;
+  aspect-ratio: 1;
+  opacity: 0.5;
+}
+#faq .d3 {
+  left: -3%;
+  top: 30%;
+  width: 8rem;
+  aspect-ratio: 2;
+}
+#faq .d4 {
+  right: 6%;
+  bottom: 8%;
+  width: 6rem;
+  height: 4rem;
+}
+
+/* Cierre */
+.final {
+  border-top: 0;
+}
+.final .d1 {
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  width: min(64rem, 150%);
+  aspect-ratio: 1;
+  opacity: 0.2;
+}
+.final .d2 {
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  width: min(40rem, 100%);
+  aspect-ratio: 1;
+  opacity: 0.28;
+}
+.final .d3 {
+  left: -5%;
+  bottom: -20%;
+  width: 18rem;
+  aspect-ratio: 1.1;
+}
+.final .d4 {
+  right: -4%;
+  top: -16%;
+  width: 16rem;
+  aspect-ratio: 1;
+}
+.final .d5 {
+  right: 14%;
+  bottom: 18%;
+  width: 2.4rem;
+  aspect-ratio: 1;
+}
+.final .d6 {
+  left: 12%;
+  top: 22%;
+  width: 1.7rem;
+  aspect-ratio: 1;
+}
+.final .d7 {
+  left: 24%;
+  bottom: 14%;
+  width: 0.8rem;
+  aspect-ratio: 1;
+}
+.final .d8 {
+  right: 26%;
+  top: 18%;
+  width: 0.7rem;
+  aspect-ratio: 1;
+}
+
+/* ---------- Bordes curvos entre secciones con fondo (tint) ----------
+   Un recorte del color de la página en el borde de arriba y otro (volteado) abajo.
+   --curve se achica solo cuando la ventana es baja, para no pisar el contenido. */
+.sec.tint {
+  --curve: clamp(0.6rem, calc(var(--sec-y) * 0.75), 2.6rem);
+  border-block: 0;
+}
+.sec.tint::before,
+.sec.tint::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: var(--curve);
+  background: var(--bg);
+  pointer-events: none;
+  z-index: 0;
+  -webkit-mask: var(--edge) 0 0 / 100% 100% no-repeat;
+  mask: var(--edge) 0 0 / 100% 100% no-repeat;
+}
+.sec.tint::before {
+  top: -1px;
+}
+.sec.tint::after {
+  bottom: -1px;
+  scale: 1 -1;
+}
+/* Onda */
+#estados,
+#faq {
+  --edge: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 44' preserveAspectRatio='none'%3E%3Cpath d='M0 0H1200V22C1000 44 800 0 600 22S200 0 0 22Z'/%3E%3C/svg%3E");
+}
+/* Arco */
+#modos {
+  --edge: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 44' preserveAspectRatio='none'%3E%3Cpath d='M0 0H1200V4Q600 48 0 4Z'/%3E%3C/svg%3E");
+}
+/* Diagonal */
+#instalar {
+  --edge: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 44' preserveAspectRatio='none'%3E%3Cpath d='M0 0H1200V2L0 42Z'/%3E%3C/svg%3E");
+}
+/* Festón (semicírculos): se repite a lo ancho */
+#instalar::before {
+  -webkit-mask: radial-gradient(
+      circle at 50% 0,
+      #000 calc(var(--curve) * 0.9),
+      transparent calc(var(--curve) * 0.9 + 1px)
+    )
+    0 0 / calc(var(--curve) * 2) 100% repeat-x;
+  mask: radial-gradient(
+      circle at 50% 0,
+      #000 calc(var(--curve) * 0.9),
+      transparent calc(var(--curve) * 0.9 + 1px)
+    )
+    0 0 / calc(var(--curve) * 2) 100% repeat-x;
+}
+
+/* ---------- Franja de cifras: tarjeta redondeada con esquinas distintas ---------- */
+.band {
+  margin-inline: var(--gutter);
+  border-radius: clamp(1.5rem, 4vw, 3rem) clamp(1.5rem, 4vw, 3rem)
+    clamp(1.5rem, 4vw, 3rem) clamp(0.5rem, 1vw, 0.9rem);
+}
+.band .deco {
+  overflow: hidden;
+  border-radius: inherit;
+}
+.stats li {
+  border-left: 0;
+  padding: clamp(0.6rem, calc(1.6 * var(--vh)), 1rem) 1.1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 1.75rem 1.75rem 1.75rem 0.4rem;
+}
+.stats li:nth-child(2) {
+  border-radius: 1.75rem 0.4rem 1.75rem 1.75rem;
+}
+.stats li:nth-child(3) {
+  border-radius: 0.4rem 1.75rem 1.75rem 1.75rem;
+}
+.stats li:nth-child(4) {
+  border-radius: 1.75rem 1.75rem 0.4rem 1.75rem;
+}
+
+/* ---------- Funciones: tarjetas y cuadros de ícono con formas distintas ---------- */
+.tile {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px 28px 10px 28px;
+}
+.tile:nth-child(even) {
+  border-radius: 28px 10px 28px 10px;
+}
+.tile.w4 {
+  border-radius: 34px 12px 34px 12px;
+}
+.tile::after {
+  content: "";
+  position: absolute;
+  right: -2.2rem;
+  top: -2.2rem;
+  width: 6rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent) 9%, transparent);
+  pointer-events: none;
+}
+.tile:nth-child(3n + 2)::after {
+  border-radius: 28%;
+  rotate: 24deg;
+  background: color-mix(in srgb, var(--btn-b) 12%, transparent);
+}
+.tile:nth-child(3n)::after {
+  border-radius: 50% 0 50% 0;
+  background: color-mix(in srgb, var(--btn-a) 11%, transparent);
+}
+/* Cuadros de ícono: círculo, hexágono, hoja y cuadrado redondeado en rotación */
+.tile .ico,
+.perms .ico {
+  border-radius: 50%;
+}
+.tile:nth-child(4n + 2) .ico,
+.perms li:nth-child(4n + 2) .ico {
+  border-radius: 12px;
+}
+.tile:nth-child(4n + 3) .ico,
+.perms li:nth-child(4n + 3) .ico {
+  border-radius: 50% 10% 50% 10%;
+}
+.tile:nth-child(4n) .ico,
+.perms li:nth-child(4n) .ico {
+  border-radius: 0;
+  clip-path: polygon(50% 0, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
+}
+.tile.hl::after {
+  width: 9rem;
+  right: -3rem;
+  top: -3rem;
+  background: color-mix(in srgb, var(--btn-b) 14%, transparent);
+  border-radius: 50%;
+}
+
+/* ---------- Estados: línea con formas (un círculo del color de cada estado) ---------- */
+.axis li {
+  overflow: hidden;
+}
+.axis li::after {
+  content: "";
+  position: absolute;
+  right: -1.4rem;
+  bottom: -1.4rem;
+  width: 4rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--c) 14%, transparent);
+  pointer-events: none;
+}
+
+/* ---------- Modos: tarjetas con forma ---------- */
+.mode {
+  position: relative;
+}
+.mode h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.mode h3::before {
+  content: "";
+  flex: none;
+  width: 1.1rem;
+  aspect-ratio: 1;
+  background: linear-gradient(135deg, var(--btn-a), var(--btn-b));
+  border-radius: 50%;
+}
+.mode:last-child h3::before {
+  border-radius: 28%;
+  rotate: 45deg;
+  width: 0.95rem;
+}
+
+/* ---------- Privacidad: marcas de verificación dentro de un círculo ---------- */
+.facts-list li {
+  grid-template-columns: 2.1rem 1fr;
+}
+.facts-list svg {
+  box-sizing: content-box;
+  width: 1.1rem;
+  height: 1.1rem;
+  padding: 0.5rem;
+  margin-top: 0;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+}
+.facts-list li:nth-child(even) svg {
+  border-radius: 12px;
+}
+
+/* ---------- Instalación: números de paso con formas distintas ---------- */
+.steps li:nth-child(2)::before {
+  border-radius: 30%;
+}
+.steps li:nth-child(3)::before {
+  border-radius: 0;
+  clip-path: polygon(50% 0, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
+}
+.steps li:nth-child(4)::before {
+  border-radius: 50% 10% 50% 10%;
+}
+.warn {
+  border-radius: 14px 14px 14px 4px;
+  border-left: 4px solid var(--accent);
+}
+
+/* ---------- Títulos de sección: detalle de píldora + punto (no ocupa alto) ---------- */
+.sec h2,
+.final h2 {
+  position: relative;
+}
+.sec h2::before,
+.final h2::before {
+  content: "";
+  position: absolute;
+  top: -0.95rem;
+  left: 0;
+  width: 3.9rem;
+  height: 0.6rem;
+  pointer-events: none;
+  background:
+    radial-gradient(circle, var(--accent) 48%, transparent 52%) 3.3rem center /
+      0.6rem 0.6rem no-repeat,
+    linear-gradient(90deg, var(--btn-a), var(--btn-b)) 0 center / 2.9rem 0.45rem
+      no-repeat;
+  border-radius: 999px;
+}
+.final h2::before {
+  left: 50%;
+  translate: -50% 0;
+}
+/* Si el título va pegado al borde de la sección, el detalle baja para no salirse */
+.sec .wrap > h2:first-child::before {
+  top: -0.8rem;
+}
+
+/* ---------- Pie: línea de puntos en vez de línea recta ---------- */
+footer {
+  border-top: 0;
+  background: radial-gradient(circle, var(--line) 2px, transparent 2.6px) center
+    top / 16px 8px repeat-x;
+}
+
+/* ---------- Movimiento suave (solo si la persona no pidió reducirlo) ---------- */
+@keyframes spin-slow {
+  to {
+    rotate: 360deg;
+  }
+}
+@keyframes bob {
+  to {
+    translate: 0 -10px;
+  }
+}
+.anim .hero .d1,
+.anim .final .d1 {
+  animation: spin-slow 120s linear infinite;
+}
+.anim .hero .d5,
+.anim .hero .d8,
+.anim .hero .d9,
+.anim .hero .d10,
+.anim .show-stage .d3,
+.anim .show-stage .d4,
+.anim .final .d5,
+.anim .final .d6 {
+  animation: bob 5s ease-in-out infinite alternate;
+}
+.anim .hero .d8,
+.anim .show-stage .d4,
+.anim .final .d6 {
+  animation-delay: -2s;
+}
+.anim .hero .d10 {
+  animation-delay: -3.2s;
+}
+/* Fuera de pantalla no se anima nada (el JS ya marca el hero; el resto no necesita más) */
+.anim .hero.is-offscreen .sh {
+  animation-play-state: paused;
+}
+
+/* ---------- Pantallas chicas: menos formas y más pequeñas ---------- */
+@media (max-width: 960px) {
+  .sh.hide-md {
+    display: none;
+  }
+}
+@media (max-width: 760px) {
+  .sh.hide-sm {
+    display: none;
+  }
+  .hero .d1 {
+    top: -2%;
+    width: 18rem;
+  }
+  .final .d1 {
+    width: 150%;
+  }
+  .band {
+    margin-inline: 0.6rem;
+  }
+  .stats li {
+    padding: 0.7rem 0.9rem;
+  }
+  .show-stage .deco {
+    inset: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sh,
+  .tile {
+    animation: none;
+  }
+}
