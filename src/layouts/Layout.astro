@@ -1,0 +1,104 @@
+---
+import "../styles/tokens.css";
+import "../styles/base.css";
+import "../styles/nav.css";
+import "../styles/hero.css";
+import "../styles/band.css";
+import "../styles/capturas.css";
+import "../styles/estados.css";
+import "../styles/funciones.css";
+import "../styles/privacidad.css";
+import "../styles/instalar.css";
+import "../styles/faq.css";
+import "../styles/animations.css";
+
+const title = "Vexa – Control de vencimientos para Android";
+const description =
+  "Escanea el código de barras de tus productos, registra su vencimiento y recibe avisos antes de que caduquen. Descarga la app para Android.";
+const ogDescription =
+  "Escanea, registra el vencimiento y recibe avisos a tiempo. Todo guardado en tu teléfono.";
+const url = new URL("./", Astro.site).href;
+const ogImage = new URL("img/og-image.png", Astro.site).href;
+const favicon =
+  "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23030020'/><path d='M22 26l28 50 28-50' fill='none' stroke='%231EE6FF' stroke-width='14' stroke-linecap='round' stroke-linejoin='round'/></svg>";
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "Vexa",
+  applicationCategory: "UtilitiesApplication",
+  operatingSystem: "Android 8.0+",
+  inLanguage: "es",
+  description:
+    "Control de vencimientos: escanea productos, registra su fecha de vencimiento y recibe avisos.",
+};
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta
+      name="theme-color"
+      content="#030020"
+      media="(prefers-color-scheme: dark)"
+    />
+    <meta
+      name="theme-color"
+      content="#faf9ff"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta name="color-scheme" content="dark light" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={ogDescription} />
+    <meta property="og:locale" content="es_CL" />
+    <meta property="og:url" content={url} />
+    <meta property="og:site_name" content="Vexa" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Vexa: control de vencimientos para Android"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={ogDescription} />
+    <meta name="twitter:image" content={ogImage} />
+    <link rel="canonical" href={url} />
+
+    <link rel="icon" href={favicon} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&display=swap"
+      rel="stylesheet"
+    />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    {/* Van en <head> y sin defer a propósito: aplican tema y .anim antes del primer pintado */}
+    <script is:inline src="js/theme.js"></script>
+    <script is:inline src="js/animations.js"></script>
+  </head>
+  <body>
+    <slot />
+
+    {/* El orden importa: utils.js antes de release/hero/probe/nav; qrcode antes de hero */}
+    <script is:inline src="js/vendor/qrcode.js"></script>
+    <script is:inline src="js/utils.js"></script>
+    <script is:inline src="js/config.js"></script>
+    <script is:inline src="js/release.js"></script>
+    <script is:inline src="js/capturas.js"></script>
+    <script is:inline src="js/hero.js"></script>
+    <script is:inline src="js/probe.js"></script>
+    <script is:inline src="js/nav.js"></script>
+  </body>
+</html>

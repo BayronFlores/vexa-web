@@ -291,10 +291,3 @@ p {
 main section[id]:not(#inicio) {
   scroll-margin-top: calc(-1 * (var(--sec-y) - 0.5rem));
 }
-
-/* include.js oculta el contenido mientras arma la página, para que no se vea a medias */
-.loading .nav,
-.loading main,
-.loading footer {
-  visibility: hidden;
-}

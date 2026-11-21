@@ -1,70 +1,90 @@
-# Vexa – página de descarga
+# Vexa – página de descarga (Astro)
 
-Sitio estático: no necesita compilar nada. Sube la carpeta completa a tu hosting.
-`index.html` es solo el esqueleto: al abrirse, `js/include.js` carga cada parte de `partials/` en su lugar.
-Por eso hay que verlo desde un servidor (hosting o `python -m http.server`), no con doble clic.
+Sitio estático hecho con [Astro](https://astro.build). El contenido que antes se cargaba en el
+navegador desde `partials/` con `js/include.js` ahora se arma **al compilar**: el HTML sale completo
+(mejor para buscadores y para quien no tiene JavaScript). El aspecto y el comportamiento son idénticos
+a la versión anterior.
+
+## Comandos
+
+Requiere Node 22 o superior.
+
+| Comando           | Qué hace                                                        |
+| ----------------- | --------------------------------------------------------------- |
+| `npm install`     | Instala Astro (solo la primera vez)                             |
+| `npm run dev`     | Servidor local con recarga automática: http://localhost:4321    |
+| `npm run build`   | Genera el sitio listo para subir en `dist/`                     |
+| `npm run preview` | Sirve `dist/` localmente para probar el resultado final         |
+
+Para publicar, sube **el contenido de `dist/`** a tu hosting. (`dist/` ya viene generada en este zip;
+se vuelve a crear con `npm run build`.) No se abre con doble clic: usa `npm run preview` o el hosting.
+
+## Estructura
 
 ```
-index.html              esqueleto: <head> (título, SEO, estilos) y la lista de partes en orden
-partials/               el contenido, una parte por archivo (se cargan solos al abrir la página)
-  nav.html              «Saltar al contenido» y barra de navegación
-  footer.html           pie de página
-  sections/             hero, band, capturas, estados, funciones, modos, privacidad, instalar, permisos,
-                        novedades, faq, cierre
-css/                    un archivo por sección, en el orden en que aparecen
-  tokens.css            colores, tipografía y medidas (tema claro y oscuro)
-  base.css              reinicio, títulos, botones, chips de estado, datos de descarga
-  nav.css               barra de navegación y menú móvil
-  hero.css              portada: titular, aviso con QR, teléfono y escáner
-  band.css              franja de cifras
-  capturas.css          «Así se ve Vexa»: lista de pantallas y teléfono grande
-  estados.css           probador de estados y línea de estados
-  funciones.css         tarjetas de funciones y «Dos formas de usarla»
-  privacidad.css        «Tus datos» y diagrama de qué sale del teléfono
-  instalar.css          pasos, permisos y novedades
-  faq.css               preguntas, cierre y pie de página
-  animations.css        animaciones (lo que depende de JS cuelga de la clase .anim)
-js/
-  config.js             ← datos de la versión (lo único que se edita al publicar)
-  theme.js              tema claro/oscuro (se carga primero para evitar parpadeos)
-  animations.js         animaciones (se carga primero; no hace nada con «reducir movimiento»)
-  include.js            carga partials/ y luego los demás scripts (lista SCRIPTS dentro)
-  icons.js              íconos SVG de la página (agrega uno nuevo aquí)
-  utils.js              funciones compartidas (Vexa.$, Vexa.copyText, …)
-  release.js            versión, huella, tamaño del APK y novedades
-  hero.js               código de barras decorativo y aviso de dispositivo con QR
-  capturas.js           selector de pantallas (pestañas) de «Así se ve Vexa»
-  probe.js              probador de estados
-  nav.js                menú móvil y botón de tema
-  vendor/qrcode.js      generador de QR (MIT, Kazuhiko Arase)
-img/og-image.png        imagen que se ve al compartir el enlace (1200×630)
-img/capturas/           capturas de la app en WebP (600×1200). Para cambiar una, reemplaza el archivo
-                        con el mismo nombre; para agregar otra, copia un botón
-                        .show-tab y una <img class="show-img"> en partials/sections/capturas.html
-vexa.apk                ← súbelo tú, junto a index.html
+astro.config.mjs        dirección del sitio (`site`) y opciones de Astro
+src/
+  pages/index.astro     la página: lista de secciones en el orden en que aparecen
+  layouts/Layout.astro  <head> (título, SEO, fuentes, JSON-LD), estilos y scripts
+  components/
+    Nav.astro           «Saltar al contenido» y barra de navegación
+    Footer.astro        pie de página
+    Icons.astro         sprite de íconos SVG (agrega uno nuevo aquí)
+    sections/           hero, band, capturas, estados, funciones, modos, privacidad, instalar,
+                        permisos, novedades, faq, cierre
+  styles/               un archivo por sección (se importan en Layout.astro, en este orden)
+    tokens.css          colores, tipografía y medidas (tema claro y oscuro)
+    base.css            reinicio, títulos, botones, chips de estado, datos de descarga
+    nav.css · hero.css · band.css · capturas.css · estados.css · funciones.css
+    privacidad.css · instalar.css · faq.css · animations.css
+public/                 se copia tal cual a la raíz del sitio
+  js/
+    config.js           ← datos de la versión (lo único que se edita al publicar)
+    theme.js            tema claro/oscuro (en <head>, evita parpadeos)
+    animations.js       animaciones (en <head>; no hace nada con «reducir movimiento»)
+    utils.js            funciones compartidas (Vexa.$, Vexa.copyText, …)
+    release.js          versión, huella, tamaño del APK y novedades
+    hero.js             código de barras decorativo y aviso de dispositivo con QR
+    capturas.js         selector de pantallas de «Así se ve Vexa»
+    probe.js            probador de estados
+    nav.js              menú móvil y botón de tema
+    vendor/qrcode.js    generador de QR (MIT, Kazuhiko Arase)
+  img/og-image.png      imagen al compartir el enlace (1200×630)
+  img/capturas/         capturas de la app en WebP (600×1200)
 ```
 
-Dónde tocar cada cosa: textos → el archivo de su sección en `partials/sections/`; colores → `css/tokens.css` (el tema claro está en
-dos bloques, cámbialo en ambos); el aspecto de una sección → su `css/<sección>.css`; cada
-comportamiento → su `js/<nombre>.js`. Para reordenar o quitar una sección, edita la lista de `<div data-include>` en `index.html`.
-El orden de la lista `SCRIPTS` en `js/include.js` importa: `utils.js` va antes de `release.js`, `hero.js`, `probe.js` y `nav.js`.
+Dónde tocar cada cosa: textos → el componente de su sección en `src/components/sections/`; colores →
+`src/styles/tokens.css` (el tema claro está en dos bloques, cámbialo en ambos); el aspecto de una
+sección → su `src/styles/<sección>.css`; cada comportamiento → su `public/js/<nombre>.js`. Para
+reordenar o quitar una sección, edita la lista de `src/pages/index.astro`.
+
+El orden de los `<script>` al final de `src/layouts/Layout.astro` importa: `qrcode.js` y `utils.js`
+van antes de `release.js`, `hero.js`, `probe.js` y `nav.js`.
+
+Para cambiar una captura, reemplaza el archivo con el mismo nombre en `public/img/capturas/`; para
+agregar otra, copia un botón `.show-tab` y una `<img class="show-img">` en
+`src/components/sections/Capturas.astro`.
 
 ## Al publicar una versión nueva
 
-1. Reemplaza `vexa.apk` por el archivo nuevo (o cambia `file` si lo renombras).
-2. Abre `js/config.js` y edita **solo el bloque `RELEASE`**:
+1. Sube el APK donde lo alojes (en `config.js`, `file` apunta hoy a una *release* de GitHub). Si lo
+   alojas en este mismo sitio, déjalo en `public/vexa.apk` y pon `file: "vexa.apk"`.
+2. Abre `public/js/config.js` y edita **solo el bloque `RELEASE`**:
    - `version`: número nuevo (se actualiza en toda la página).
    - `sha256`: huella del APK. Si la pegas, aparece el bloque «Verifica el archivo».
    - `history`: agrega la versión nueva **al principio** con sus cambios.
-3. Guarda. El tamaño del APK se detecta solo si el servidor lo informa.
+3. Ejecuta `npm run build` y sube `dist/`. El tamaño del APK se detecta solo si el servidor lo informa.
 
 Para obtener la huella: `sha256sum vexa.apk` (Linux/Mac) o `certutil -hashfile vexa.apk SHA256` (Windows).
 
 ## Antes de publicar el sitio
 
-En `index.html` reemplaza `https://TU-DOMINIO.cl/` por la dirección real (con `/` al final) en
-`og:url`, `og:image`, `twitter:image` y `canonical`. Las imágenes para compartir necesitan
-una dirección absoluta; con la de ejemplo, WhatsApp y redes no mostrarán la imagen.
+En `astro.config.mjs` reemplaza `https://TU-DOMINIO.cl/` por la dirección real (con `/` al final). Con
+eso se actualizan solos `og:url`, `og:image`, `twitter:image` y `canonical`. Las imágenes para
+compartir necesitan una dirección absoluta; con la de ejemplo, WhatsApp y redes no mostrarán la imagen.
+
+Si publicas en un subdirectorio (por ejemplo, GitHub Pages de proyecto: `usuario.github.io/vexa-web/`),
+agrega también `base: "/vexa-web"` en `astro.config.mjs`.
 
 ## Notas
 
